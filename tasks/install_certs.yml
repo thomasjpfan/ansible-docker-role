@@ -1,0 +1,29 @@
+---
+
+- name: Install certs | Create docker cert dir
+  file:
+    path: "{{ docker_server_cert_path }}"
+    state: directory
+    mode: 0444
+    owner: root
+    group: root
+  when: docker_install_certs
+
+- name: Install certs | Copy keys and certs
+  copy:
+    src: "{{ item.local }}"
+    dest: "{{ item.server }}"
+    mode: "{{ item.mode }}"
+    owner: root
+    group: root
+  with_items:
+    - { local: "{{ docker_local_cacert }}",
+        server: "{{ docker_server_cacert }}",
+        mode: 444 }
+    - { local: "{{ docker_local_tlscert }}",
+        server: "{{ docker_server_tlscert }}",
+        mode: 444 }
+    - { local: "{{ docker_local_tlskey }}",
+        server: "{{ docker_server_tlskey }}",
+        mode: 400 }
+  when: docker_install_certs

@@ -1,0 +1,40 @@
+---
+
+docker_gpg_key_url: https://download.docker.com/linux/ubuntu/gpg
+docker_apt_repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} {{ docker_channel }}"
+docker_pkg_name: "docker-ce={{ docker_version }}~ce-0~ubuntu"
+
+docker_apt_cache_valid_time: 1800
+
+docker_server_cacert: "{{ docker_server_cert_path }}/ca.pem"
+docker_server_tlscert: "{{ docker_server_cert_path }}/server-cert.pem"
+docker_server_tlskey: "{{ docker_server_cert_path }}/server-key.pem"
+
+docker_required_packages:
+  - "apt-transport-https"
+  - "ca-certificates"
+  - "curl"
+  - "software-properties-common"
+
+
+docker_install_certs: >
+  {{ docker_local_cacert is not none and
+     docker_local_tlscert is not none and
+     docker_local_tlskey is not none }}
+
+docker_certs_daemon_json:
+  tlsverify: true
+  tlscacert: "{{ docker_server_cacert }}"
+  tlscert: "{{ docker_server_tlscert }}"
+  tlskey: "{{ docker_server_tlskey }}"
+
+__docker_hosts_list: >
+  {{ docker_daemon_json.hosts is none or docker_daemon_json.hosts is undefined |
+     ternary([], docker_daemon_json.hosts) |
+     union(["fd://"])}}
+
+docker_daemon_dict: >
+  {{ docker_daemon_json is none | ternary({}, docker_daemon_json) |
+     combine(docker_install_certs |
+     ternary(docker_certs_daemon_json, {})) |
+     combine(dict(hosts=__docker_hosts_list)) }}

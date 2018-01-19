@@ -1,0 +1,18 @@
+sudo: required
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce=18.01.0~ce-0~ubuntu
+
+before_script:
+  - make setup_test
+
+script:
+  - make test
+
+after_script:
+  - make clean_up

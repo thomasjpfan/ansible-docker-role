@@ -1,0 +1,30 @@
+---
+
+- name: install docker | Install dependencies if necessary.
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: "{{ docker_apt_cache_valid_time }}"
+  with_items: "{{ docker_required_packages }}"
+
+- name: install docker | Add Docker official GPG key.
+  apt_key:
+    url: "{{ docker_gpg_key_url }}"
+    state: present
+
+- name: install docker | Add the APT Docker repository.
+  apt_repository:
+    repo: "{{ docker_apt_repo }}"
+    state: present
+    mode: 644
+    update_cache: yes
+
+- name: install docker | Install docker package.
+  apt:
+    name: "{{ docker_pkg_name }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: "{{ docker_apt_cache_valid_time }}"
+  notify:
+    - Start Docker

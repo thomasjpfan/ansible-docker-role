@@ -1,0 +1,11 @@
+---
+
+# Will create users if they dont exist
+- name: Add the Docker adminstrators to Docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  become: true
+  with_items: "{{ docker_group_members }}"
+  register: docker_add_to_group

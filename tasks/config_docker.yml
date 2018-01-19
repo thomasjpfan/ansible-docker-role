@@ -1,0 +1,37 @@
+---
+
+# Fix to allow daemon.json to work
+# https://github.com/moby/moby/issues/25471#issuecomment-263101090
+- name: Config docker | creates override directory (systemd)
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: "{{ docker_daemon_dict | ternary('directory', 'absent')}}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Config docker | creates override conf
+  copy:
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=/usr/bin/dockerd
+    dest: /etc/systemd/system/docker.service.d/override.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    -  Reload Daemon Restart
+  when: docker_daemon_dict
+
+
+- name: Config docker | setup daemon.json
+  copy:
+    content: "{{docker_daemon_dict | to_nice_json}}"
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart Docker
+  when: docker_daemon_dict

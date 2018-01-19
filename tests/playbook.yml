@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  vars:
+    - docker_use_local_cache: false
+    - docker_group_members: ["deploy"]
+    - docker_storage_driver: aufs
+    - docker_local_cacert: tests/certs/ca.pem
+    - docker_local_tlscert: tests/certs/server.pem
+    - docker_local_tlskey: tests/certs/server-key.pem
+    - docker_daemon_json:
+        hosts:
+          - tcp://ansible-local-runner:2376
+  pre_tasks:
+    - name: Instal apt-cacher
+      blockinfile:
+        path: /etc/apt/apt.conf.d/01proxy
+        create: yes
+        block: |
+          Acquire::HTTP::Proxy "http://apt-cacher:3142";
+          Acquire::HTTPS::Proxy "false";
+      when: docker_use_local_cache
+  roles:
+    - role: role_to_test
+

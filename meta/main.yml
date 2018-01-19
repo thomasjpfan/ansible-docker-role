@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Thomas Fan
+  license: MIT
+  description: Deploying docker with tls certs on Ubuntu
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+  categories:
+    - development
+    - packaging
+    - system

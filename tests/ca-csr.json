@@ -1,0 +1,12 @@
+{
+    "CN": "Root CA",
+    "key": {
+        "algo": "ecdsa",
+        "size": 256
+    },
+    "names": [{
+        "C": "US",
+        "ST": "NY",
+        "L": "New York City"
+    }]
+}
