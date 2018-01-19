@@ -16,3 +16,6 @@ script:
 
 after_script:
   - make clean_up
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

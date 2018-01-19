@@ -2,13 +2,13 @@
 galaxy_info:
   author: Thomas Fan
   license: MIT
-  description: Deploying docker with tls certs on Ubuntu
+  description: Installs Docker-CE on an Ubuntu 16.04 and setting up TLS certificates.
   min_ansible_version: 2.4
   platforms:
     - name: Ubuntu
       versions:
         - xenial
-  categories:
+  galaxy_tags:
     - development
     - packaging
     - system
