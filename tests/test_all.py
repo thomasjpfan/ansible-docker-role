@@ -50,6 +50,9 @@ def test_daemon_json(host):
     assert cert_path == daemon["tlscert"]
     assert key_path == daemon["tlskey"]
     assert ca_path == daemon["tlscacert"]
+    assert "8.8.8.8" in daemon["dns"]
+    assert "8.8.4.4" in daemon["dns"]
+    assert not daemon["ipv6"]
 
 
 def test_systemd_override(host):

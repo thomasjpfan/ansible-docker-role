@@ -11,6 +11,10 @@
     - docker_daemon_json:
         hosts:
           - tcp://ansible-local-runner:2376
+        dns:
+          - "8.8.8.8"
+          - "8.8.4.4"
+        ipv6: false
   pre_tasks:
     - name: Instal apt-cacher
       blockinfile:
