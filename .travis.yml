@@ -18,4 +18,11 @@ after_script:
   - make clean_up
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  webhooks:
+    urls:
+      - https://galaxy.ansible.com/api/v1/notifications/
+    on_success: always
+    on_failure: never
+    on_start: never
+    on_cancel: never
+    on_error: never
