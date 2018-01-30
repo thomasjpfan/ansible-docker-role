@@ -17,7 +17,7 @@ docker_required_packages:
   - "software-properties-common"
 
 
-docker_install_certs: >
+docker_install_certs: >-
   {{ docker_local_cacert is not none and
      docker_local_tlscert is not none and
      docker_local_tlskey is not none }}
