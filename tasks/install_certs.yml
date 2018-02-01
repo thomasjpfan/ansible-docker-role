@@ -27,3 +27,5 @@
         server: "{{ docker_server_tlskey }}",
         mode: 400 }
   when: docker_install_certs
+  notify:
+    - Restart Docker
