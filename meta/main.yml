@@ -2,11 +2,12 @@
 galaxy_info:
   author: Thomas Fan
   license: MIT
-  description: Installs Docker-CE on an Ubuntu 16.04 and setting up TLS certificates.
-  min_ansible_version: 2.4
+  description: Installs Docker-CE on an Ubuntu 18.04 and setting up TLS certificates.
+  min_ansible_version: 2.6
   platforms:
     - name: Ubuntu
       versions:
+        - bionic
         - xenial
   galaxy_tags:
     - development

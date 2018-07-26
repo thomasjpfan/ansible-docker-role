@@ -1,7 +1,7 @@
 .PHONY: setup_test setup_local_test clean_up cli test cycle
 
 CONTAINER_NAME?=ansible-local-runner
-TEST_CONTAINER_TAG?=1.0.0-16.04-py3
+TEST_CONTAINER_TAG?=1.1.0-18.04-py3
 
 setup_test:
 	docker run --rm --privileged -d --name $(CONTAINER_NAME) \
