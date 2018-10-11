@@ -1,7 +1,8 @@
 ---
 
 docker_gpg_key_url: https://download.docker.com/linux/ubuntu/gpg
-docker_apt_repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} {{ docker_channel }}"
+docker_apt_repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu
+  {{ansible_distribution_release}} {{ docker_channel }}"
 docker_pkg_name: "docker-ce={{ docker_version }}"
 
 docker_apt_cache_valid_time: 1800
@@ -15,7 +16,6 @@ docker_required_packages:
   - "ca-certificates"
   - "curl"
   - "software-properties-common"
-
 
 docker_install_certs: >-
   {{ docker_local_cacert is not none and
@@ -38,3 +38,9 @@ docker_daemon_dict: >
      combine(docker_install_certs |
      ternary(docker_certs_daemon_json, {})) |
      combine(dict(hosts=__docker_hosts_list)) }}
+
+__docker_install_client_certs: >-
+  {{ __docker_local_client_cert is not none and
+     __docker_local_client_key is not none }}
+__docker_server_client_cert: "{{ docker_server_cert_path }}/client-cert.pem"
+__docker_server_client_key: "{{ docker_server_cert_path }}/client-key.pem"

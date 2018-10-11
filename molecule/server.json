@@ -1,7 +1,7 @@
 {
-    "CN": "ansible-local-runner",
+    "CN": "ansible-local",
     "hosts": [
-        "ansible-local-runner"
+        "ansible-local"
     ],
     "key": {
         "algo": "ecdsa",

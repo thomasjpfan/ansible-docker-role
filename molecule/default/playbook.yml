@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+- name: Coverage
+  hosts: all
   vars:
     - docker_use_local_cache: false
     - docker_group_members: ["deploy"]
@@ -8,24 +9,16 @@
     - docker_local_cacert: certs/ca.pem
     - docker_local_tlscert: certs/server.pem
     - docker_local_tlskey: certs/server-key.pem
+    - __docker_local_client_cert: certs/client.pem
+    - __docker_local_client_key: certs/client-key.pem
     - docker_daemon_json:
         hosts:
-          - tcp://ansible-local-runner:2376
+          - tcp://ansible-local:2376
         dns:
           - "8.8.8.8"
           - "8.8.4.4"
         ipv6: false
-  pre_tasks:
-    - name: Instal apt-cacher
-      blockinfile:
-        path: /etc/apt/apt.conf.d/01proxy
-        create: yes
-        block: |
-          Acquire::HTTP::Proxy "http://apt-cacher:3142";
-          Acquire::HTTPS::Proxy "false";
-      when: docker_use_local_cache
   tasks:
     - name: Run role
       include_role:
-        name: role_to_test
-
+        name: ansible-docker-role

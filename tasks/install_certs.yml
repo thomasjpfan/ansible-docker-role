@@ -17,15 +17,31 @@
     owner: root
     group: root
   with_items:
-    - { local: "{{ docker_local_cacert }}",
-        server: "{{ docker_server_cacert }}",
-        mode: 444 }
-    - { local: "{{ docker_local_tlscert }}",
-        server: "{{ docker_server_tlscert }}",
-        mode: 444 }
-    - { local: "{{ docker_local_tlskey }}",
-        server: "{{ docker_server_tlskey }}",
-        mode: 400 }
+    - local: "{{ docker_local_cacert }}"
+      server: "{{ docker_server_cacert }}"
+      mode: 444
+    - local: "{{ docker_local_tlscert }}"
+      server: "{{ docker_server_tlscert }}"
+      mode: 444
+    - local: "{{ docker_local_tlskey }}"
+      server: "{{ docker_server_tlskey }}"
+      mode: 400
   when: docker_install_certs
   notify:
     - Restart Docker
+
+- name: Install certs | Copy client certs (For testing)
+  copy:
+    src: "{{ item.local }}"
+    dest: "{{ item.server }}"
+    mode: "{{ item.mode }}"
+    owner: root
+    group: root
+  with_items:
+    - local: "{{ __docker_local_client_cert }}"
+      server: "{{ __docker_server_client_cert }}"
+      mode: 444
+    - local: "{{ __docker_local_client_key }}"
+      server: "{{ __docker_server_client_key }}"
+      mode: 444
+  when: __docker_install_client_certs

@@ -1,4 +1,7 @@
 sudo: required
+language: python
+
+cache: pip
 
 services:
   - docker
@@ -9,13 +12,10 @@ addons:
       - docker-ce=18.06.0~ce~3-0~ubuntu
 
 before_script:
-  - make setup_test
+  - pip install -r requirements.txt
 
 script:
-  - make test
-
-after_script:
-  - make clean_up
+  - molecule test
 
 notifications:
   webhooks:

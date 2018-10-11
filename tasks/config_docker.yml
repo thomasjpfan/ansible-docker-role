@@ -21,7 +21,7 @@
     group: root
     mode: 0644
   notify:
-    -  Reload Daemon Restart
+    - Reload Daemon Restart
   when: docker_daemon_dict
 
 - name: Config docker | /etc/docker directory exists

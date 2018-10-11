@@ -5,6 +5,8 @@ ssl_path = "/etc/docker/ssl"
 cert_path = os.path.join(ssl_path, "server-cert.pem")
 key_path = os.path.join(ssl_path, "server-key.pem")
 ca_path = os.path.join(ssl_path, "ca.pem")
+client_cert_path = os.path.join(ssl_path, "client-cert.pem")
+client_key_path = os.path.join(ssl_path, "client-key.pem")
 
 
 def test_docker_installed(host):
@@ -46,7 +48,7 @@ def test_daemon_json(host):
     assert daemon["tlsverify"]
 
     assert "fd://" in daemon["hosts"]
-    assert "tcp://ansible-local-runner:2376" in daemon["hosts"]
+    assert "tcp://ansible-local:2376" in daemon["hosts"]
     assert cert_path == daemon["tlscert"]
     assert key_path == daemon["tlskey"]
     assert ca_path == daemon["tlscacert"]
@@ -71,9 +73,6 @@ def test_systemd_override(host):
 
 def test_docker_tls_verify(host):
     cmd_s = ("docker --tlsverify --tlscacert=%s --tlscert=%s "
-             "--tlskey=%s -H=ansible-local-runner:2376 version")
-    client_ca_path = "tests/certs/ca.pem"
-    client_cert_path = "tests/certs/client.pem"
-    client_key_path = "tests/certs/client-key.pem"
-    cmd = host.run(cmd_s, client_ca_path, client_cert_path, client_key_path)
+             "--tlskey=%s -H=ansible-local:2376 version")
+    cmd = host.run(cmd_s, ca_path, client_cert_path, client_key_path)
     assert cmd.rc == 0

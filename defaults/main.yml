@@ -17,3 +17,7 @@ docker_daemon_json:
 
 # List of users to be added to 'docker' system group
 docker_group_members: []
+
+# Used for testing
+__docker_local_client_cert:
+__docker_local_client_key:
