@@ -7,3 +7,15 @@
 - include_tasks: install_certs.yml
 
 - include_tasks: config_docker.yml
+
+- name: Manage Docker cron tasks
+  cron:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+    job: "{{ item.job }}"
+    minute: "{{ item.schedule[0] }}"
+    hour: "{{ item.schedule[1] }}"
+    day: "{{ item.schedule[2] }}"
+    month: "{{ item.schedule[3] }}"
+    weekday: "{{ item.schedule[4] }}"
+  loop: "{{ docker_cron_tasks }}"

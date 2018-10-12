@@ -76,3 +76,9 @@ def test_docker_tls_verify(host):
              "--tlskey=%s -H=ansible-local:2376 version")
     cmd = host.run(cmd_s, ca_path, client_cert_path, client_key_path)
     assert cmd.rc == 0
+
+
+def test_docker_crontab(host):
+    cmd = host.run("crontab -l")
+    assert cmd.rc == 0
+    assert "docker system prune -af" in cmd.stdout

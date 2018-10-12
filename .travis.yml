@@ -6,12 +6,17 @@ cache: pip
 services:
   - docker
 
+env:
+  matrix:
+    - MOLECULE_DISTRO: 18.04
+    - MOLECULE_DISTRO: 16.04
+
 addons:
   apt:
     packages:
       - docker-ce=18.06.0~ce~3-0~ubuntu
 
-before_script:
+install:
   - pip install -r requirements.txt
 
 script:

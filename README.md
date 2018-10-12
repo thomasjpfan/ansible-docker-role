@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/thomasjpfan/ansible-docker-role.svg?branch=master)](https://travis-ci.org/thomasjpfan/ansible-docker-role)
 
-Installs Docker-CE on an Ubuntu 16.04 and setting up TLS certificates.
+Installs Docker-CE on an Ubuntu 16.04/18.04 and setting up TLS certificates.
 
 ## Role Variables
 

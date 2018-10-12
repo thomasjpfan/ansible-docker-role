@@ -9,7 +9,7 @@ lint:
     config-file: molecule/default/yaml-lint.yml
 platforms:
   - name: instance
-    image: thomasjpfan/ubuntu-python-systemd:18.04-py3
+    image: thomasjpfan/ubuntu-python-systemd:${MOLECULE_DISTRO:-18.04}-py3
     hostname: ansible-local
     privileged: true
     pre_build_image: true
