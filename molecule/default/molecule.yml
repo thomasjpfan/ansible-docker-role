@@ -16,8 +16,6 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /sbin/init --log-target=journal 3>&1
-    published_ports:
-      - ansible-local:2376:2376/tcp
 provisioner:
   name: ansible
   lint:
