@@ -18,6 +18,10 @@
           - "8.8.8.8"
           - "8.8.4.4"
         ipv6: false
+        log-driver: "json-file"
+        log-opts:
+          max-size: "10m"
+          max-file: "1000"
   tasks:
     - name: Run role
       include_role:

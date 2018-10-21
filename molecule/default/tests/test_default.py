@@ -55,6 +55,9 @@ def test_daemon_json(host):
     assert "8.8.8.8" in daemon["dns"]
     assert "8.8.4.4" in daemon["dns"]
     assert not daemon["ipv6"]
+    assert daemon["log-driver"] == "json-file"
+    assert daemon["log-opts"]["max-size"] == "10m"
+    assert daemon["log-opts"]["max-file"] == "1000"
 
 
 def test_systemd_override(host):
