@@ -1,6 +1,5 @@
 ---
 
-docker_gpg_key_url: https://download.docker.com/linux/ubuntu/gpg
 docker_apt_repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu
   {{ansible_distribution_release}} {{ docker_channel }}"
 docker_pkg_name: "docker-ce={{ docker_version }}"
