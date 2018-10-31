@@ -16,7 +16,6 @@ platforms:
     pre_build_image: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /sbin/init --log-target=journal 3>&1
 provisioner:
   name: ansible
   lint:
