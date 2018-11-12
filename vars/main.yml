@@ -31,7 +31,7 @@ docker_certs_daemon_json:
 __docker_hosts_list: >
   {{ docker_daemon_json.hosts is none or docker_daemon_json.hosts is undefined |
      ternary([], docker_daemon_json.hosts) |
-     union(["fd://"])}}
+     union(["unix://"])}}
 
 docker_daemon_dict: >
   {{ docker_daemon_json is none | ternary({}, docker_daemon_json) |
