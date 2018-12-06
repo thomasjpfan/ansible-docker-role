@@ -1,6 +1,7 @@
 ---
 
 docker_gpg_key_url: https://download.docker.com/linux/ubuntu/gpg
+docker_gpg_key_id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 docker_apt_repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu
   {{ansible_distribution_release}} {{ docker_channel }}"
 docker_pkg_name: "docker-ce={{ docker_version }}"
@@ -16,6 +17,7 @@ docker_required_packages:
   - "ca-certificates"
   - "curl"
   - "software-properties-common"
+  - "gpg-agent"
 
 docker_install_certs: >-
   {{ docker_local_cacert is not none and

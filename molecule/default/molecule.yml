@@ -9,13 +9,13 @@ lint:
     config-file: molecule/default/yaml-lint.yml
 platforms:
   - name: instance
-    image: thomasjpfan/ubuntu-python-systemd:${MOLECULE_DISTRO:-18.04}-py3
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
     hostname: ansible-local
-    privileged: true
-    pre_build_image: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /sbin/init --log-target=journal 3>&1
+    privileged: true
+    pre_build_image: true
 provisioner:
   name: ansible
   lint:

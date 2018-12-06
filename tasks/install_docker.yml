@@ -1,4 +1,10 @@
 ---
+- name: install docker | Ensure old versions of Docker are not installed.
+  package:
+    name:
+      - docker
+      - docker-engine
+    state: absent
 
 - name: install docker | Install dependencies if necessary.
   apt:
@@ -10,7 +16,22 @@
 - name: install docker | Add Docker official GPG key.
   apt_key:
     url: "{{ docker_gpg_key_url }}"
+    id: "{{ docker_gpg_key_id }}"
     state: present
+  register: add_repository_key
+  ignore_errors: "{{ docker_apt_ignore_key_error }}"
+
+- name: Ensure curl is present (on older systems without SNI).
+  package: name=curl state=present
+  when: add_repository_key is failed
+
+- name: Add Docker apt key (alternative for older systems without SNI).
+  shell: >
+    curl -sSL https://download.docker.com/linux/ubuntu/gpg |
+    sudo apt-key add -
+  args:
+    warn: false
+  when: add_repository_key is failed
 
 - name: install docker | Add the APT Docker repository.
   apt_repository:

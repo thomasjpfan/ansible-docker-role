@@ -2,7 +2,7 @@
 
 # Docker channel and version to install
 docker_channel: stable
-docker_version: 5:18.09.0~3-0~ubuntu-xenial
+docker_version: 5:18.09.0~3-0~ubuntu*
 
 # Paths of certs to interact with the docker api
 docker_local_cacert:
@@ -23,6 +23,9 @@ docker_cron_tasks:
   - job: docker system prune -af &> /dev/null
     name: "Docker clean up"
     schedule: ["0", "0", "*", "*", "0"]
+
+# Ignore errors
+docker_apt_ignore_key_error: true
 
 # Used for testing
 __docker_local_client_cert:

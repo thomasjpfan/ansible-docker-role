@@ -2,6 +2,7 @@
 
 - name: Coverage
   hosts: all
+  become: true
   vars:
     - docker_use_local_cache: false
     - docker_group_members: ["deploy"]

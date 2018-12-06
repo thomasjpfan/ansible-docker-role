@@ -8,6 +8,8 @@
 
 - include_tasks: config_docker.yml
 
+- include_tasks: docker-1809-fix.yml
+
 - name: Manage Docker cron tasks
   cron:
     name: "{{ item.name }}"

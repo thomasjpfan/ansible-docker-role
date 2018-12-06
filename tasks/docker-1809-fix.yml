@@ -1,0 +1,18 @@
+---
+- name: docker-1809-fix | Ensure containerd service dir exists.
+  file:
+    path: /etc/systemd/system/containerd.service.d
+    state: directory
+
+- name: >
+    docker-1809-fix |
+    Add shim to ensure Docker can start in all environments.
+  template:
+    src: override.conf.j2
+    dest: /etc/systemd/system/containerd.service.d/override.conf
+  register: override_template
+
+- name: docker-1809-fix | Reload systemd daemon if template is changed.
+  systemd:
+    daemon_reload: true
+  when: override_template is changed
