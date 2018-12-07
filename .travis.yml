@@ -8,8 +8,8 @@ services:
 
 env:
   matrix:
-    - MOLECULE_DISTRO: 18.04
-    - MOLECULE_DISTRO: 16.04
+    - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: ubuntu1604
 
 addons:
   apt:
