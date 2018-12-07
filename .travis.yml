@@ -14,7 +14,7 @@ env:
 addons:
   apt:
     packages:
-      - docker-ce=18.06.0~ce~3-0~ubuntu
+      - docker-ce=5:18.09.0~3-0~ubuntu*
 
 install:
   - pip install -r requirements.txt
