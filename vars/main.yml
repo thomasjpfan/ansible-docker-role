@@ -17,7 +17,7 @@ docker_required_packages:
   - "ca-certificates"
   - "curl"
   - "software-properties-common"
-  - "gpg-agent"
+  - "gnupg2"
 
 docker_install_certs: >-
   {{ docker_local_cacert is not none and

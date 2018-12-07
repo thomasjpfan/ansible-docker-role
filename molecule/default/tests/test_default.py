@@ -47,7 +47,6 @@ def test_daemon_json(host):
     daemon = json.loads(daemon_json.content_string)
     assert daemon["tlsverify"]
 
-    assert "fd://" in daemon["hosts"]
     assert "tcp://ansible-local:2376" in daemon["hosts"]
     assert cert_path == daemon["tlscert"]
     assert key_path == daemon["tlskey"]
