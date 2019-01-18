@@ -2,7 +2,7 @@
 
 # Docker channel and version to install
 docker_channel: stable
-docker_version: 5:18.09.0~3-0~ubuntu*
+docker_version: 5:18.09.1~3-0~ubuntu*
 
 # Paths of certs to interact with the docker api
 docker_local_cacert:
